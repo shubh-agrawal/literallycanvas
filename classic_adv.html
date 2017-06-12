@@ -1,0 +1,215 @@
+<html>
+  <head>
+    <!-- stylesheet -->
+    
+  </head>
+  <body>
+
+
+  <div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Instructions [Read carefully]</h2>
+    </div>
+    <div class="modal-body">
+        <h2>Road lane and signs marking</h2>
+          <p style="color: #ff0000; font-size: 1.2em; font-weight: 700;">Please read the entire tutorial and watch the example video. It is a actually short and simple process but full attention is needed while performing the task on your side</p>
+          <p>This HIT is very similar to editing an image in MS Paint.</p>
+          <h3>Image selections</h3>
+          <p>In the first step you will be asked to choose between different pictures. You should pick the one that makes the object the most recognizable and where the object is fully in frame. Here are some examples of bad and good images:</p>
+          <table class="examples">
+            <thead>
+            <tr><th class="Given Image">Given Image</th><th class="Expected Markings">Expected Markings</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <img src="/static/img/examples/good1.jpg" />
+                  <p>Label is out of frame but doesn't need to be in the picture.</p>
+                </td>
+                <td>
+                  <img src="/static/img/examples/bad1.jpg" />
+                  <p>Too many very thin details are too difficult to cut out.</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="/static/img/examples/good2.jpg" />
+                </td>
+                <td>
+                  <img src="/static/img/examples/bad2.jpg" />
+                  <p>Objects are not fully in frame.</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="/static/img/examples/good3.jpg" />
+                </td>
+                <td>
+                  <img src="/static/img/examples/bad3.jpg" />
+                  <p>Object is not fully in frame.</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="/static/img/examples/good4.jpg" />
+                </td>
+                <td>
+                  <img src="/static/img/examples/bad4.jpg" />
+                  <p>Picture isn't oriented correctly.</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="/static/img/examples/good6.jpg" />
+                  <p>Cable is not fully in frame but is not important.</p>
+                </td>
+                <td>
+                  <img src="/static/img/examples/bad5.jpg" />
+                  <p>Car is not fully in frame.</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>In some cases none of the images will be suitable. In this case you can just press the red button and the HIT will be completed without the need for a second step. Note that we manually moderate the results and incorrectly marking images will not be accepted.</p>
+          <h3>Background subtraction</h3>
+          <p>In the second step, the goal is to remove the background from our foreground object. We have an easy to use tool for this to help you with this process. By clicking or dragging you mark parts of the image that are part of the object in <span style="color: green; font-weight: bold;">green</span>. By shift-clicking or dragging you mark parts of the image that are not part of the object and should be removed in <span style="color: red; font-weight: bold;">red</span>. Note that you have to <strong style="font-weight: 700;">mark both background and the object</strong>. You can click in both the original image and the cutout preview. You can press u on your keyboard to undo something if you made a mistake. You can also press r to start over.</p>
+          <p>The preview next to or below the original image (depending on your screen size) will automatically update as you add markers. Note that your markers do not have to follow the exact outline if there is a clear boundry between background and foreground. As a result some images will be easier to cut than others.</p>
+          <p>To show you how this works, you can check out this video to see how it works and how you can get a nice result. It is highly recommended to see this to get a feel of how it works.</p>
+          <video src="/static/video/example.mp4" controls></video>
+    </div>
+    <div class="modal-footer">
+      <h3>Good Luck! Thanks for Participating</h3>
+    </div>
+  </div>
+  </div>
+    <style>
+    /* The Modal (background) */
+    .modal {
+        /*display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 5000; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        position: absolute;
+        top: 15%;
+        background-color: #fefefe;
+        left: 20%;
+        width: 60%;
+    }
+
+    /* The Close Button */
+    .close {
+        color: white;
+        float: right;
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .modal-header {
+        padding: 2px 16px;
+        background-color: #5cb85c;
+        color: white;
+    }
+
+    .modal-body {padding: 2px 16px;}
+
+    .modal-footer {
+        padding: 2px 16px;
+        background-color: #5cb85c;
+        color: white;
+    }
+    </style>
+
+
+
+    <!-- <div style="display:inline-block;vertical-align:top;"> -->
+    <h1>Annotate the given road image as per instructions: ${objects_to_find}</h1>
+    <p>Markings should be precise enough as per the examples given in instructions for approval of HIT. Extra bonus and increase in qualification for deserving workers!</p>
+    <!-- kick it off -->
+    
+
+    <div class="my-drawing"></div>
+    <p id="button_paragraph"><input id="annotation_data" name="annotation_data" type="hidden" />
+    <link href="https://dl.dropbox.com/s/ee2ou52ss8w4cia/literallycanvas.css?dl=0" rel="stylesheet">
+
+    <!-- dependency: React.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-with-addons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+
+    <!-- Literally Canvas -->
+    <script src="https://dl.dropbox.com/s/sedaxmmwkcouyaa/literallycanvas.js?dl=0"></script>
+    <script>    
+        
+
+        // Literally canvas setup --------------------------------------------------------------
+        var backgroundImage = new Image()
+        backgroundImage.src = 'static/sample_image.png';
+      
+        var modal = document.getElementById('myModal');
+        var span = document.getElementsByClassName("close")[0];
+
+        var localStorageKey = 'drawing'
+        var lc = LC.init(
+            document.getElementsByClassName('my-drawing')[0],
+            {
+              imageSize: {width: 640, height: 480},
+              imageURLPrefix: "https://raw.githubusercontent.com/shubh-agrawal/literallycanvas/master/static/img/",
+              backgroundShapes: [
+                    LC.createShape(
+                    'Image', {x: 0, y: 0, image: backgroundImage, scale: 1})],
+              //snapshot: JSON.stringify(lc.getSnapshot())    
+            }
+        );
+        
+        lc.on('drawingChange', function() 
+        {
+          entries = lc.getSnapshot(['shapes', 'imageSize', 'colors', 'position', 'scale'])
+          console.log(entries)
+          localStorage.setItem(localStorageKey, JSON.stringify(entries));
+          document.getElementById('annotation_data').value = JSON.stringify(entries);
+        }
+        );
+
+        // Modal logic ---------------------------------------------------------------------
+        var assignment_id = ""
+        //var assignment_id = turkGetParam('assignmentId', "");
+        span.onclick = function() {
+        modal.style.display = "none";
+        }
+        // When the user clicks anywhere outside of the modal, close it
+        // window.onclick = function(event) {
+        //     if (event.target == modal) {
+        //         modal.style.display = "none";
+        //     }
+        // }
+
+        if (assignment_id == "" ||
+            assignment_id == "ASSIGNMENT_ID_NOT_AVAILABLE")
+        {
+          modal.style.display = "block";
+        }
+        
+    </script>
+    <p class="text-center"><input type="submit" id="submitButton" class="btn btn-primary" value="Submit"></p>
+
+  </body>
+</html>

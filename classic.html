@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <!-- stylesheet -->
+    
+  </head>
+  <body>
+    
+    <!-- <div style="display:inline-block;vertical-align:top;"> -->
+    <h1>Draw a box around each of the following: ${objects_to_find}</h1>
+    <p>Draw a rectangle using your mouse over each object that matches the search criteria ${objects_to_find}. Then, type a label for that object and press ENTER.</p>
+    <!-- kick it off -->
+    <div class="my-drawing"></div>
+    <p id="button_paragraph"><input id="annotation_data" name="annotation_data" type="hidden" />
+    <link href="https://dl.dropbox.com/s/ee2ou52ss8w4cia/literallycanvas.css?dl=0" rel="stylesheet">
+
+    <!-- dependency: React.js -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-with-addons.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+
+    <!-- Literally Canvas -->
+    <script src="https://dl.dropbox.com/s/sedaxmmwkcouyaa/literallycanvas.js?dl=0"></script>
+    <script>
+        var backgroundImage = new Image()
+        backgroundImage.src = 'static/sample_image.png';
+      
+        var localStorageKey = 'drawing'
+        var lc = LC.init(
+            document.getElementsByClassName('my-drawing')[0],
+            {
+              imageSize: {width: 640, height: 480},
+              imageURLPrefix: "https://raw.githubusercontent.com/shubh-agrawal/literallycanvas/master/static/img/",
+              backgroundShapes: [
+                  LC.createShape(
+                  'Image', {x: 0, y: 0, image: backgroundImage, scale: 1})],
+              //snapshot: JSON.stringify(lc.getSnapshot())    
+            }
+        );
+        // if (localStorage.getItem(localStorageKey)) 
+        // {
+        //   lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey)));
+        // } 
+        lc.on('drawingChange', function() 
+        {
+          entries = lc.getSnapshot(['shapes', 'imageSize', 'colors', 'position', 'scale'])
+          console.log(entries)
+          localStorage.setItem(localStorageKey, JSON.stringify(entries));
+          document.getElementById('annotation_data').value = JSON.stringify(entries);
+        }
+        );
+        
+    </script>
+    <p class="text-center"><input type="submit" id="submitButton" class="btn btn-primary" value="Submit"></p>
+
+  </body>
+</html>
